@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
 
 const stats = [
   { label: "Total Events tracked", value: "1,284", color: "text-primary" },

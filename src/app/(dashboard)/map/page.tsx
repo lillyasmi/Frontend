@@ -5,9 +5,7 @@ import { useEventStore } from "@/stores/eventStore";
 import { useFilterStore } from "@/stores/filterStore";
 import { FeedFilters } from "@/components/feed/FeedFilters";
 import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Globe, Map as MapIcon, Info, Layers } from "lucide-react";
-import { RISK_COLORS } from "@/lib/constants";
+import { Map as MapIcon, Info, Layers } from "lucide-react";
 
 const MapView = dynamic(() => import("@/components/map/MapView"), { 
   ssr: false,

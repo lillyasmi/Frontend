@@ -4,7 +4,6 @@ import { useEventStore } from "@/stores/eventStore";
 import { useFilterStore } from "@/stores/filterStore";
 import { EventCard } from "@/components/feed/EventCard";
 import { FeedFilters } from "@/components/feed/FeedFilters";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Rss, Filter, SlidersHorizontal, Loader2 } from "lucide-react";

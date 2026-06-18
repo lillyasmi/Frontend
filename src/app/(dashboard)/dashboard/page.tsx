@@ -6,12 +6,11 @@ import {
   Globe, 
   CheckCircle2, 
   AlertTriangle,
-  TrendingUp,
-  BarChart3,
-  PieChart as PieChartIcon,
   Activity
 } from "lucide-react";
 import { 
+  Line, 
+  LineChart, 
   Bar, 
   BarChart, 
   ResponsiveContainer, 
@@ -21,8 +20,6 @@ import {
   Cell,
   Pie,
   PieChart,
-  Line,
-  LineChart,
   CartesianGrid
 } from "recharts";
 import { 
@@ -32,7 +29,6 @@ import {
   CardContent, 
   CardDescription 
 } from "@/components/ui/card";
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 
 const categoryData = [
   { name: "Conflict", value: 45, color: "#3B82F6" },

@@ -9,10 +9,10 @@ import {
   MapPin, 
   ShieldCheck, 
   ShieldAlert, 
-  ExternalLink,
   ChevronRight,
   MessageSquare,
-  Share2
+  Share2,
+  Activity
 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { cn } from "@/lib/utils";
@@ -35,58 +35,71 @@ export function EventCard({ event }: EventCardProps) {
 
   return (
     <Card className={cn(
-      "bg-card/50 border-border group hover:border-primary/50 transition-all duration-200",
+      "bg-card/40 border-border group hover:border-primary/50 transition-all duration-300 relative overflow-hidden",
       styles.border
     )}>
-      <CardHeader className="pb-3">
+      {/* Risk Background Glow */}
+      <div className={cn(
+        "absolute top-0 right-0 w-32 h-32 blur-[60px] opacity-0 group-hover:opacity-10 transition-opacity pointer-events-none",
+        event.riskLevel === 'critical' ? 'bg-critical' :
+        event.riskLevel === 'high' ? 'bg-high' : 'bg-primary'
+      )} />
+
+      <CardHeader className="pb-3 relative">
         <div className="flex justify-between items-start mb-2">
           <div className="flex gap-2">
-            <Badge className={styles.badge}>{event.riskLevel.toUpperCase()}</Badge>
-            <Badge variant="outline" className="bg-background/50 border-border capitalize">
+            <Badge className={cn("text-[10px] font-bold px-2 py-0 h-5", styles.badge)}>{event.riskLevel.toUpperCase()}</Badge>
+            <Badge variant="outline" className="bg-background/30 border-border capitalize text-[10px] h-5 py-0">
               {event.category}
             </Badge>
           </div>
-          <div className="flex items-center gap-1.5 text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
-            <Clock className="w-3 h-3" />
+          <div className="flex items-center gap-1.5 text-[9px] font-bold text-muted-foreground uppercase tracking-widest bg-white/5 px-2 py-0.5 rounded border border-white/5">
+            <Clock className="w-2.5 h-2.5" />
             {formatDistanceToNow(new Date(event.timestamp))} ago
           </div>
         </div>
-        <CardTitle className="text-xl leading-tight group-hover:text-primary transition-colors">
+        <CardTitle className="text-lg font-bold leading-tight group-hover:text-primary transition-colors">
           <Link href={`/events/${event.id}`}>
             {event.title}
           </Link>
         </CardTitle>
       </CardHeader>
-      <CardContent className="pb-4">
-        <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+      <CardContent className="pb-4 relative">
+        <p className="text-xs text-muted-foreground mb-4 line-clamp-2 leading-relaxed">
           {event.summary}
         </p>
-        <div className="flex flex-wrap gap-4 text-xs font-medium">
-          <div className="flex items-center gap-1.5 text-white">
-            <MapPin className="w-3.5 h-3.5 text-primary" />
-            {event.country}, {event.region}
+        <div className="flex flex-wrap gap-x-4 gap-y-2 text-[11px] font-bold uppercase tracking-tight">
+          <div className="flex items-center gap-1.5 text-white/90">
+            <MapPin className="w-3 h-3 text-primary" />
+            {event.country}
           </div>
           <div className="flex items-center gap-1.5 text-muted-foreground">
             <ShieldCheck className={cn(
-              "w-3.5 h-3.5",
+              "w-3 h-3",
               event.verificationStatus === 'verified' ? "text-low" : "text-muted-foreground"
             )} />
-            <span className="capitalize">{event.verificationStatus}</span>
+            <span className={cn(
+              event.verificationStatus === 'verified' ? "text-low/80" : ""
+            )}>{event.verificationStatus}</span>
+          </div>
+          <div className="flex items-center gap-1.5 text-muted-foreground">
+            <Activity className="w-3 h-3 text-primary/70" />
+            <span>CONF: {event.confidenceScore}%</span>
           </div>
         </div>
       </CardContent>
-      <CardFooter className="pt-0 border-t border-border/50 flex justify-between items-center py-3">
-        <div className="flex gap-2">
-          <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-primary">
-            <MessageSquare className="w-4 h-4" />
+      <CardFooter className="pt-0 border-t border-border/40 flex justify-between items-center py-2 bg-white/[0.02] relative">
+        <div className="flex gap-1">
+          <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground hover:text-primary hover:bg-primary/10">
+            <MessageSquare className="w-3.5 h-3.5" />
           </Button>
-          <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-primary">
-            <Share2 className="w-4 h-4" />
+          <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground hover:text-primary hover:bg-primary/10">
+            <Share2 className="w-3.5 h-3.5" />
           </Button>
         </div>
-        <Button asChild variant="ghost" size="sm" className="h-8 text-xs font-bold text-primary hover:text-primary hover:bg-primary/10 gap-1">
+        <Button asChild variant="ghost" size="sm" className="h-7 px-2 text-[10px] font-black tracking-widest text-primary hover:text-primary hover:bg-primary/10 gap-1 uppercase">
           <Link href={`/events/${event.id}`}>
-            VIEW INTEL <ChevronRight className="w-3 h-3" />
+            OPEN INTEL <ChevronRight className="w-3 h-3" />
           </Link>
         </Button>
       </CardFooter>

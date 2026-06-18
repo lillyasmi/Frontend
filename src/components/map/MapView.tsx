@@ -9,7 +9,7 @@ import { RISK_COLORS } from "@/lib/constants";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ShieldAlert, MapPin, Clock } from "lucide-react";
+import { MapPin, Clock } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 
 // Fix for default marker icons in Leaflet with Next.js
